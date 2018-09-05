@@ -21,5 +21,7 @@ Vagrantfile
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/web/uploads/*
+!/web/uploads/.gitkeep
 
 TAGS
