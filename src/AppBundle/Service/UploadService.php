@@ -9,6 +9,9 @@ class UploadService
     /** @var string */
     private $uploadDirectory;
 
+    /**
+     * @param string $uploadDirectory
+     */
     public function __construct($uploadDirectory)
     {
         $this->uploadDirectory = $uploadDirectory;
@@ -30,6 +33,11 @@ class UploadService
         return $filename;
     }
 
+    /**
+     * Get upload directory
+     *
+     * @return string
+     */
     public function getUploadDirectory()
     {
         return $this->uploadDirectory;
