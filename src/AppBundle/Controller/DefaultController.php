@@ -35,6 +35,7 @@ class DefaultController extends Controller
         $paginator = $repo->paginateAll($this->limit, $page, 'DESC');
         $images = $paginator->getIterator();
         $lastPage = ceil(count($paginator) / $this->limit);
+        $lastPage = max(1, $lastPage); // No less than 1
 
         $package = new PathPackage('/uploads', new EmptyVersionStrategy());
 
