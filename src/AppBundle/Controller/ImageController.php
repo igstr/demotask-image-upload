@@ -49,10 +49,6 @@ class ImageController extends Controller
             // instead of the file contents.
             $image->setFile($filename);
 
-            // TODO Create and set image slug
-            $slug = $image->getTitle();
-            $image->setSlug($slug);
-
             $entityManager->persist($image);
             $entityManager->flush();
         } else {
