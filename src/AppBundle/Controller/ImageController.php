@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ImageController extends Controller
 {
     /**
-     * @Route("/image/{id}/", name="image")
+     * @Route("/image/{id}/", name="image", requirements={"id"="\d+"})
      */
     public function showAction(Request $request, $id)
     {
