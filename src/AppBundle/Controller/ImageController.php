@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ImageController extends Controller
@@ -20,6 +21,12 @@ class ImageController extends Controller
     {
         $repo = $this->get('doctrine')->getRepository(Image::class);
         $image = $repo->find($id);
+
+        if (empty($image)) {
+            $msg = sprintf('Image with id "%s" cannot be found', $id);
+            throw new NotFoundHttpException($msg);
+        }
+
         $image->src = '/uploads/'.$image->getFile();
 
         return $this->render('default/page_image.html.twig', [
