@@ -59,18 +59,14 @@ class ImageController extends Controller
             $entityManager->persist($image);
             $entityManager->flush();
         } else {
-            // TODO return error response
-            return new Response('NOT OK', 500);
+            $errors = $form->getErrors(true);
+            $messages = [];
+            foreach($errors as $err) {
+                $messages[] = $err->getMessage();
+            }
+            return $this->json(['success' => false, 'errors' => $messages], 400);
         }
 
-        return $this->redirect($this->generateUrl('homepage'));
-    }
-
-    /**
-     * @return string
-     */
-    private function generateUniqueFileName()
-    {
-        return md5(uniqid());
+        return $this->json(['success' => true], 200);
     }
 }

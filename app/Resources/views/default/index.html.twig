@@ -11,7 +11,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body" style="padding-bottom: 0;">
-                    {{ form_start(form) }}
+                    {{ form_start(form, {'attr': {'class': 'form-image'}}) }}
                         <div class="form-row">
                             <div class="form-group col-md-5">
                                 {{ form_widget(form.title, {'attr': {'placeholder': 'Title'}}) }}
@@ -25,6 +25,7 @@
                             <div class="form-group col-md-2">
                                 {{ form_widget(form.submit, {'attr': {'class': 'btn-primary btn-block'}}) }}
                             </div>
+                            <div class="alert alert-response text-danger"></div>
                         </div>
                     {{ form_end(form) }}
                 </div>

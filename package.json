@@ -1,0 +1,12 @@
+{
+  "name": "taskdemo-image-upload",
+  "version": "1.0.0",
+  "description": "Demo task for image uploading",
+  "main": "app.js",
+  "author": "Ignas Strimaitis <ignas.strimaitis@protonmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.20.1",
+    "jquery": "^3.3.1"
+  }
+}
