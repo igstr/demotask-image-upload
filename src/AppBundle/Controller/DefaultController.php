@@ -12,19 +12,33 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
 {
+    /** @var int Items per page */
+    private $limit = 9;
+
     /**
      * @Route("/", name="homepage")
      */
     public function indexAction(Request $request)
     {
+        return $this->listAction($request);
+    }
+
+    /**
+     * @Route("/images/{page}/", name="list_images", requirements={"page"="\d+"})
+     */
+    public function listAction(Request $request, $page = 1)
+    {
         $image = new Image();
         $form = $this->createForm(ImageType::class, $image);
 
-        $package = new PathPackage('/uploads', new EmptyVersionStrategy());
         $repo = $this->get('doctrine')->getRepository(Image::class);
-        $images = $repo->findAll();
+        $paginator = $repo->paginateAll($this->limit, $page, 'DESC');
+        $images = $paginator->getIterator();
+        $lastPage = ceil(count($paginator) / $this->limit);
 
-        if (!empty($images)) {
+        $package = new PathPackage('/uploads', new EmptyVersionStrategy());
+
+        if ($images->current()) {
             foreach ($images as $image) {
                 $image->page_url = $this->generateUrl('image', ['id' => $image->getId()]);
                 $image->src = $package->getUrl($image->getFile());
@@ -33,9 +47,12 @@ class DefaultController extends Controller
 
         return $this->render('default/index.html.twig', [
             'html_title' => 'Demo Task Image Uploader',
-            'title' => 'Demo Task Image Uploader',
-            'form' => $form->createView(),
-            'images' => $images,
+            'title'      => 'Demo Task Image Uploader',
+            'form'       => $form->createView(),
+            'images'     => $images,
+            'page'       => $page,
+            'lastPage'   => $lastPage,
+            'routePages' => 'list_images',
         ]);
     }
 }

@@ -55,13 +55,7 @@
         {% endfor %}
     </div>
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="index.php?page=0">1</a></li>
-            <li class="page-item"><a class="page-link" href="index.php?page=1">2</a></li>
-            <li class="page-item"><a class="page-link" href="index.php?page=1">Next</a></li>
-        </ul>
-    </nav>
+    {% include 'default/parts/pagination.html.twig' %}
 
 </div>
 {% endblock %}

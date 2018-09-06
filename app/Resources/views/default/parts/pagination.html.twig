@@ -1,0 +1,25 @@
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+
+        {# Previous button #}
+        {% if page > 1 %}
+        <li class="page-item">
+            <a class="page-link" href="{{ path(routePages, {page: page - 1}) }}">Previous</a>
+        </li>
+        {% endif %}
+
+        {# Render each page number #}
+        {% for i in 1..lastPage %}
+        <li class="page-item{{ page == i ? ' active' }}">
+            <a class="page-link" href="{{ path(routePages, {page: i}) }}">{{ i }}</a>
+        </li>
+        {% endfor %}
+
+        {# Next button #}
+        {% if page < lastPage %}
+        <li class="page-item">
+            <a class="page-link" href="{{ path(routePages, {page: page + 1}) }}">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
