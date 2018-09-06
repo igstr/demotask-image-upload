@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Image;
 use AppBundle\Form\ImageType;
+use AppBundle\Service\UploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +32,7 @@ class ImageController extends Controller
     /**
      * @Route("/image/", name="create_image", methods={"POST"})
      */
-    public function createAction(Request $request, EntityManagerInterface $entityManager)
+    public function createAction(Request $request, EntityManagerInterface $entityManager, UploadService $uploadService)
     {
         $image = new Image();
         $form = $this->createForm(ImageType::class, $image);
@@ -42,19 +43,10 @@ class ImageController extends Controller
             /** @var Symfony\Component\HttpFoundation\File\UploadedFile */
             $file = $image->getFile();
 
-            $filename = date('Ymd\THi-').$file->getClientOriginalName();
-            // $filename = $this->generateUniqueFileName().'.'.$file->guessExtension();
+            $filename = $uploadService->upload($file);
 
-            // Move the file to uploads directory
-            $file->move(
-                $this->getParameter('upload_dir'),
-                $filename
-            );
-
-            /**
-             * Updates the filename property to store the actual filename
-             * instead of the file contents.
-             */
+            // Updates the filename property to store the actual filename
+            // instead of the file contents.
             $image->setFile($filename);
 
             // TODO Create and set image slug

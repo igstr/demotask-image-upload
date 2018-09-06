@@ -36,5 +36,5 @@ services:
 
     AppBundle\Service\UploadService:
         arguments:
-            $uploadDir: '%upload_dir%'
+            $uploadDirectory: '%upload_dir%'
 
