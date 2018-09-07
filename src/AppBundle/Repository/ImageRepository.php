@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repository;
 
-use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
  * ImageRepository
@@ -13,24 +13,17 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class ImageRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * Paginate through all images
+     * Get all images in specified order
      *
-     * @param int $limit Items per page
-     * @param int $page Current page
      * @param string $order Sort order, either 'ASC' or 'DESC'
      *
-     * @return Paginator
+     * @return QueryBuilder
      */
-    public function paginateAll($limit, $page = 1, $order = 'ASC')
+    public function getAllInOrder($order = 'ASC')
     {
         $queryBuilder = $this->createQueryBuilder('i');
         $queryBuilder->orderBy('i.id', $order);
-        $paginator = new Paginator($queryBuilder);
-        $paginator
-            ->getQuery()
-            ->setFirstResult($limit * ($page - 1))
-            ->setMaxResults($limit);
 
-        return $paginator;
+        return $queryBuilder;
     }
 }

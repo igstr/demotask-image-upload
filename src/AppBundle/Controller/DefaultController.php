@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Image;
 use AppBundle\Form\ImageType;
+use AppBundle\Service\PaginateService as Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
@@ -14,6 +15,17 @@ class DefaultController extends Controller
 {
     /** @var int Items per page */
     private $limit = 9;
+
+    /** @var Paginator */
+    private $paginator;
+
+    /**
+     * @param Paginator $paginator
+     */
+    public function __construct(Paginator $paginator)
+    {
+        $this->paginator = $paginator;
+    }
 
     /**
      * @Route("/", name="homepage")
@@ -32,10 +44,10 @@ class DefaultController extends Controller
         $form = $this->createForm(ImageType::class, $image);
 
         $repo = $this->get('doctrine')->getRepository(Image::class);
-        $paginator = $repo->paginateAll($this->limit, $page, 'DESC');
+        $query = $repo->getAllInOrder('DESC');
+        $paginator = $this->paginator->paginate($query, $this->limit, $page);
+        $pageCount = $this->paginator->countPages($paginator, $this->limit);
         $images = $paginator->getIterator();
-        $lastPage = ceil(count($paginator) / $this->limit);
-        $lastPage = max(1, $lastPage); // No less than 1
 
         $package = new PathPackage('/uploads', new EmptyVersionStrategy());
 
@@ -52,7 +64,7 @@ class DefaultController extends Controller
             'form'       => $form->createView(),
             'images'     => $images,
             'page'       => $page,
-            'lastPage'   => $lastPage,
+            'lastPage'   => $pageCount,
             'routePages' => 'list_images',
         ]);
     }
