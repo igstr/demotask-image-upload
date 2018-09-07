@@ -30,9 +30,9 @@ class ImageController extends Controller
         $image->src = '/uploads/'.$image->getFile();
 
         return $this->render('default/page_image.html.twig', [
-            'html_title' => 'Demo Task Image Uploader',
-            'title' => 'Demo Task Image Uploader',
-            'image' => $image,
+            'html_title' => 'Demo Task Image - Uploader',
+            'title'      => 'Demo Task - Image Uploader',
+            'image'      => $image,
         ]);
     }
 

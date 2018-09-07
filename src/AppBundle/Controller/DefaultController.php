@@ -47,8 +47,8 @@ class DefaultController extends Controller
         }
 
         return $this->render('default/index.html.twig', [
-            'html_title' => 'Demo Task Image Uploader',
-            'title'      => 'Demo Task Image Uploader',
+            'html_title' => 'Demo Task - Image Uploader',
+            'title'      => 'Demo Task - Image Uploader',
             'form'       => $form->createView(),
             'images'     => $images,
             'page'       => $page,
