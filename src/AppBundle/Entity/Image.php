@@ -40,14 +40,6 @@ class Image
     private $file;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
-     */
-    private $slug;
-
-
-    /**
      * Get id
      *
      * @return int
@@ -104,29 +96,4 @@ class Image
     {
         return $this->file;
     }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return Image
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
 }
-
