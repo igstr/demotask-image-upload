@@ -59,13 +59,13 @@ class DefaultController extends Controller
         }
 
         return $this->render('default/index.html.twig', [
-            'html_title' => 'Demo Task - Image Uploader',
-            'title'      => 'Demo Task - Image Uploader',
-            'form'       => $form->createView(),
-            'images'     => $images,
-            'page'       => $page,
-            'lastPage'   => $pageCount,
-            'routePages' => 'list_images',
+            'html_title'  => 'Demo Task - Image Uploader',
+            'title'       => 'Demo Task - Image Uploader',
+            'form'        => $form->createView(),
+            'images'      => $images,
+            'page'        => $page,
+            'page_count'  => $pageCount,
+            'route_pages' => 'list_images',
         ]);
     }
 }

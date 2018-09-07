@@ -3,19 +3,19 @@
 
         {# Previous button #}
         <li class="page-item{{ page <= 1 ? ' disabled' }}">
-            <a class="page-link" href="{{ path(routePages, {page: page - 1}) }}">Previous</a>
+            <a class="page-link" href="{{ path(route_pages, {page: page - 1}) }}">Previous</a>
         </li>
 
         {# Render each page number #}
-        {% for i in 1..lastPage %}
+        {% for i in 1..page_count %}
         <li class="page-item{{ page == i ? ' active' }}">
-            <a class="page-link" href="{{ path(routePages, {page: i}) }}">{{ i }}</a>
+            <a class="page-link" href="{{ path(route_pages, {page: i}) }}">{{ i }}</a>
         </li>
         {% endfor %}
 
         {# Next button #}
-        <li class="page-item{{ page >= lastPage ? ' disabled' }}">
-            <a class="page-link" href="{{ path(routePages, {page: page + 1}) }}">Next</a>
+        <li class="page-item{{ page >= page_count ? ' disabled' }}">
+            <a class="page-link" href="{{ path(route_pages, {page: page + 1}) }}">Next</a>
         </li>
     </ul>
 </nav>
