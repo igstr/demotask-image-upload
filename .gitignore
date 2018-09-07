@@ -24,5 +24,6 @@ Vagrantfile
 /web/bundles/
 /web/uploads/*
 !/web/uploads/.gitkeep
+/web/media/cache/
 
 TAGS

@@ -37,7 +37,9 @@
         {% for image in images %}
         <div class="col-sm-6 col-lg-4" style="margin-bottom: 1.25rem;">
             <div class="card">
-                <img class="card-img-top" src="{{ image.src }}" alt="">
+                <div class="card-img-top card-img-top-thumb">
+                    <img src="{{ image.src | imagine_filter('thumb_348x250') }}" alt="">
+                </div>
                 <div class="card-body">
                     <h4 class="card-title">{{ image.title }}</h4>
                     <a href="{{ image.page_url }}" class="btn btn-primary">View Image</a>

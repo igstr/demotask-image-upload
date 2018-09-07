@@ -57,3 +57,18 @@ doctrine:
 sensio_framework_extra:
    router:
         annotations: false
+
+liip_imagine:
+    resolvers:
+        default:
+            # use the default web path
+            web_path: ~
+
+    filter_sets:
+        # use the default cache configuration
+        cache: ~
+
+        thumb_348x250:
+            quality: 75
+            filters:
+                thumbnail: { size: [348, 250], mode: inset }
